@@ -28,6 +28,16 @@ module TrafficSpy
       @os_counts = browsers.map do |user_agent, count|
         [UserAgent.parse(user_agent).platform, count]
       end
+
+      response_time = payload.map do |payload|
+        payload.responded_in
+      end
+
+      @ave_response_time = response_time.map do |time|
+      (time.reduce(:+)) / response_time.count
+      end
+
+
       erb :application_details
     end
 
